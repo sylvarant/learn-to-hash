@@ -1,4 +1,3 @@
-
 '''
 Demo for running training or linear models.
 '''
@@ -8,11 +7,19 @@ from kahip.kmkahip import run_kmkahip
 
     
 if __name__ == '__main__':
+
+
     opt = utils.parse_args()
+
+    # TODO done by adriaan
+    opt.data_dir = "../data"
+#    opt.sift = False
+
 
     #adjust the number of parts and the height of the hierarchy
     n_cluster_l = [2]
     height_l = [1]
+
 
     # load dataset 
     if opt.glove:

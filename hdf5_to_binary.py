@@ -4,13 +4,13 @@ import numpy as np
 import struct
 
 f = h5py.File(sys.argv[1], 'r')
-print f.keys()
+print(f.keys())
 dataset = f['train'][:]
-print dataset.shape, dataset.dtype
+print(dataset.shape, dataset.dtype)
 queries = f['test'][:]
-print queries.shape, queries.dtype
+print(queries.shape, queries.dtype)
 answers = f['neighbors'][:]
-print answers.shape, answers.dtype
+print(answers.shape, answers.dtype)
 
 def serialize(a, file_name):
     if len(a.shape) != 2:
@@ -21,7 +21,7 @@ def serialize(a, file_name):
         spec = 'f'
     else:
         spec = 'i'
-    print spec
+    print(spec)
     with open(file_name, 'wb') as output:
         output.write(struct.pack('Q', a.shape[0]))
         for i in range(a.shape[0]):
@@ -31,3 +31,12 @@ def serialize(a, file_name):
 serialize(dataset, sys.argv[2])
 serialize(queries, sys.argv[3])
 serialize(answers, sys.argv[4])
+
+def toNumpy(a, file_name):
+    np.save(file_name + '.npy', np.asarray(a, dtype=a.dtype))
+
+toNumpy(dataset, sys.argv[2])
+toNumpy(queries, sys.argv[3])
+toNumpy(answers, sys.argv[4])
+
+
